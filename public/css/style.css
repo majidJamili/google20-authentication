@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;700&display=swap');
+body{
+    font-family: 'Roboto', sans-serif;
+}
+p{
+    margin: 10px 0 !important;
+}
+.login-container{
+    width: fit-content;
+    margin-top: 50px;
+    text-align: center;
+}
