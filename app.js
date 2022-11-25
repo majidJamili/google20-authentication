@@ -12,10 +12,12 @@ const passport = require('passport');
 const app = express();
 const cookieSession = require('cookie-session'); 
 const cookieParser = require("cookie-parser");
-const session = require('express-session');
 const exphbs = require('express-handlebars') 
 const connectDB = require('./config/db'); 
-const morgan = require('morgan')
+const morgan = require('morgan'); 
+const mongoose = require('mongoose'); 
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 connectDB()
 
@@ -40,20 +42,15 @@ app.use(express.static(path.join(__dirname,'public')))
 const sessionConfig = {
     secret: 'thisshouldbeabettersecret!',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
         httpOnly: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
-    }
+    },
+    store: MongoStore.create({mongoUrl: process.env.MONGODB_URI,}),
 }; 
-
-
-
 app.use(session(sessionConfig)); 
-
-
-
 
 
 app.use(passport.initialize());
