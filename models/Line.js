@@ -6,6 +6,10 @@ const LineSchema = new mongoose.Schema({
         require:true, 
         trim:true
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
     body:{
         type:String, 
         require:true
@@ -25,10 +29,6 @@ const LineSchema = new mongoose.Schema({
     workcenters:{
         type:Array
     },    
-    user:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'User'
-    },   
 
     createdAt:{
         type:Date, 

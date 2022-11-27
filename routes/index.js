@@ -2,14 +2,14 @@ const express = require('express');
 const passport = require('passport');
 const router  = express.Router(); 
 const { ensureAuth, ensureGuest } = require('../middlewares'); 
-const Workcenter = require('../models/Workcenter'); 
+const Line = require('../models/Line'); 
 
 
 //Login and Landing Page:
 
 
 router.get('/google' , passport.authenticate('google', { scope:
-    [ 'email', 'profile' ]
+    ['profile']
 }));
 
 router.get('/google/callback',
@@ -22,17 +22,17 @@ router.get('/',ensureGuest, (req, res) => {
     //res.send("<button><a href='/google'>Login With Google</a></button>")
     res.render('login', {layout:'login'}); 
 });
-router.get('/dashboard',ensureAuth, async(req , res) => {
-    // res.send("Welcome " + req.user.email);
+router.get('/dashboard', ensureAuth, async (req, res) => {
+
     try {
-        const workcenters = await Workcenter.find({}).lean()
-        res.render('dashboard',{
-            name: req.user.firstName, 
-            workcenters })
-    } catch (error) {
-        console.error(error)
+
+        const lines = await Line.find({}).lean()
+        res.render('dashboard', { name: req.user.given_name, lines });
+    } catch (err) {
+        console.error(err)
+        res.render('error/500')
     }
-});
+})
 
 
 

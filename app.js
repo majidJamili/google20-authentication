@@ -36,7 +36,9 @@ app.engine( '.hbs', exphbs.engine({ defaultLayout: 'main',  extname: '.hbs'}))
 app.set('view engine', '.hbs');
 
 //Static Folder Set-up:
-app.use(express.static(path.join(__dirname,'public')))
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 
 const sessionConfig = {
@@ -48,7 +50,7 @@ const sessionConfig = {
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
     },
-    store: MongoStore.create({mongoUrl: process.env.MONGODB_URI,}),
+    store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI_LOCAL, }),
 }; 
 app.use(session(sessionConfig)); 
 
@@ -60,6 +62,8 @@ require('./passport');
 //Routes:
 
 app.use('/',require('./routes/index'))
+app.use('/lines', require('./routes/lines'))
+
 
 
 

@@ -4,6 +4,7 @@ const User = require('./models/User');
 
 
 
+
 passport.use(new GoogleStrategy({
           clientID:process.env.GOOGLE_CLIENT_ID, // Your Credentials here.
         clientSecret:process.env.GOOGLE_CLIENT_SECRET, // Your Credentials here.
@@ -49,4 +50,8 @@ passport.deserializeUser((user, done)=> {
     done(null, user); 
   // User.findById(id, (err,user) => done(null, user))
 })
+
+
+
+
 

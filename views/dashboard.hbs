@@ -1,2 +1,26 @@
 <h3>Dashboard</h3>
  <h6> Hello {{name}} have a nice time!</h6> 
+{{#if lines}}
+<table class="striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each lines}}
+        <tr>
+            <td><a href="/lines/{{_id}}"></a>{{title}}</td>
+            <td>{{createdAt}}</td>
+            <td><span class="dash-status">{{status}}</span></td>
+            <td></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{else}}
+<p>You have no prodcution lines in your site yet</p>
+{{/if}}
