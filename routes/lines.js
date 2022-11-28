@@ -15,19 +15,14 @@ router.get('/add', ensureAuth, (req, res) => {
 router.post('/', ensureAuth, async (req, res) => {
 
     try {
+        console.log(req.user.id); 
 
-        const author = await User.find({ 'googleId': req.user.id })
-        const authorId = author[0]._id;
-
-        req.body.user = authorId;
-        const line = new Line(req.body);
-        await line.save();
+        req.body.user = req.user.id;
+        await Line.create(req.body)
         res.redirect('/dashboard')
-
     } catch (error) {
         console.error(error)
         res.render('error/500')
-
     }
 })
 

@@ -1,8 +1,9 @@
 const dotenv = require("dotenv"); 
-if (process.env.NODE_ENV !== "production") {
-    dotenv.config();
-}
+// if (process.env.NODE_ENV !== "production") {
+//     dotenv.config();
+// }
 
+dotenv.config();
 
 const isLoggedIn = require('./middlewares'); 
 
@@ -41,23 +42,26 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 
+
 const sessionConfig = {
     secret: 'thisshouldbeabettersecret!',
     resave: false,
     saveUninitialized: false,
-    cookie: {
-        httpOnly: true,
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-        maxAge: 1000 * 60 * 60 * 24 * 7
-    },
-    store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI_LOCAL, }),
+
+    // cookie: {
+    //     httpOnly: true,
+    //     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+    //     maxAge: 1000 * 60 * 60 * 24 * 7
+    // },
+    //store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI_LOCAL }),
 }; 
 app.use(session(sessionConfig)); 
 
+//Passport Middlewares:
 
 app.use(passport.initialize());
 app.use(passport.session());
-require('./passport'); 
+require('./passport')(passport); 
 
 //Routes:
 
