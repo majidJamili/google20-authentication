@@ -1,0 +1,30 @@
+<h1>Lines</h1>
+<div class="row">
+    {{#each lines}}
+        <div class="col s12 m4">
+            <div class="card">
+                <div class="card-image">
+                    {{!-- ../user will go out side of the loop and find the logged in user instead of teh author user --}}
+                    {{{editIcon user ../user _id }}}
+                </div>
+                <div class="card-content center-align">
+                    <h5>{{title}}</h5>
+                    {{!-- it is wrapping boudy into the pre-defined helpers --}}
+                    <p>{{stripTags (truncate body 250)}}</p>
+                    <br>
+                    <div class="chip">
+                        <img src="{{user.image}}" alt="">
+                        <a href="/lines/user/{{user._id}}">{{user.displayName}}</a>
+                    </div>
+                </div>
+                <div class="card-action center-align">
+                    <a href="/lines/{{_id}}" class="btn grey">Read More</a>
+                </div>
+            </div>
+        </div>
+
+    {{else}}
+        There are no manufacuting lines
+    {{/each}}
+
+</div>

@@ -13,10 +13,20 @@
     <tbody>
         {{#each lines}}
         <tr>
-            <td><a href="/lines/{{_id}}"></a>{{title}}</td>
-            <td>{{createdAt}}</td>
+            <td><a href="/lines/{{_id}}">{{title}}</a></td>
+            <td>{{formatDate createdAt 'MMMM Do YYYY, h:mm:ss A'}}</td>
             <td><span class="dash-status">{{status}}</span></td>
-            <td></td>
+            <td>
+                <a href="/lines/edit/{{_id}}" class="btn btn-float yellow darken-2">                
+                    <i class="fas fa-edit"></i>
+                </a>
+                <form action="/lines/{{_id}}" method="POST" id="delete-form">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button class="btn red">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+            </td>
         </tr>
         {{/each}}
     </tbody>

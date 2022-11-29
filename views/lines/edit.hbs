@@ -1,0 +1,36 @@
+<h3>Edit Prodcution Line</h3>
+<div class="row">
+    <form action="/lines/{{line._id}}" method="POST" class="col s12">
+    <input type="hidden" name="_method"  value="PUT">
+        <div class="row">
+            <div class="input-field">
+                <input type="text" id="title" name="title" value="{{line.title}}">
+                <label for="title">Title</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field">
+                <select id="status" name="status">
+                    {{#select line.status}}
+                        <option value="Assembly" selected>Assembly</option>
+                        <option value="Manufacturing">Manufacturing</option>
+                    {{/select }}
+                </select>
+                <label for="status">Status</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field">
+                <h5>Tell Us About this Production Line</h5>
+                <textarea id="body" name="body">{{line.body}}</textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <input type="submit" value="Edit" class="btn red">
+            <a href="/dashboard" class="btn orange">Cancel</a>
+        </div>
+    </form>
+</div>
